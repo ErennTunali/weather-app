@@ -27,6 +27,12 @@ submitButton.addEventListener('click', (e) => {
 
 async function updateInfo(city) {
   let weatherData = await getWeatherInfo(city);
+  console.log(weatherData);
   let weatherDesc = weatherData.description;
-  infoSection.innerText = weatherDesc;
+  let tempCur = weatherData.currentConditions.temp;
+  let timeCur = weatherData.currentConditions.datetime;
+  //let icon = weatherData.currentConditions.icon;
+  infoSection.innerText += weatherDesc;
+  infoSection.innerText += tempCur;
+  infoSection.innerText += timeCur;
 }

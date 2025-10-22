@@ -1,0 +1,31 @@
+body,
+html {
+  display: flex;
+  background-color: rgb(42, 42, 42);
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  min-width: 100%;
+}
+form {
+  padding-top: 100px;
+  font-size: 40px;
+  font-family: Roboto, arial;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+input {
+  height: 1em;
+  box-sizing: content-box;
+  font-size: 1em;
+}
+button {
+  height: 1em;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
