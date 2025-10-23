@@ -7,25 +7,124 @@ html {
   align-items: center;
   min-height: 100%;
   min-width: 100%;
+  font-family: Roboto;
+  gap: 1em;
 }
 form {
-  padding-top: 100px;
   font-size: 40px;
   font-family: Roboto, arial;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+
+  background-color: darkgray;
+  border-radius: 30px;
+
+  height: 2em;
+  width: 15em;
+  padding: 0;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 input {
   height: 1em;
+  flex: 1;
   box-sizing: content-box;
   font-size: 1em;
+  background: none;
+  border: none;
 }
-button {
-  height: 1em;
+input:focus {
+  outline: none;
+}
+.submit-button {
+  height: 1.5em;
+  width: 1.5em;
   font-size: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border-radius: 0.75em;
+  border: none;
+  background-color: gray;
+  box-sizing: border-box;
+}
+.submit-button:hover {
+  background-color: rgb(67, 67, 67);
+}
+.info-section {
+  height: 25em;
+  width: 25em;
+  border-style: solid;
+  border-color: rgb(66, 191, 232);
+  border-width: 5px;
+  border-radius: 20px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.temp {
+  font-size: 50px;
+  font-weight: 700;
+}
+.description {
+  font-size: 20px;
+  text-align: center;
+}
+.city {
+  font-size: 30px;
+}
+.time {
+  font-size: 20px;
+}
+.error {
+  height: 5em;
+  width: 30em;
+  border-style: solid;
+  border-color: red;
+  border-width: 5px;
+  border-radius: 20px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+form {
+}
+svg {
+  height: 40px;
+}
+.temp-unit-div {
+  background-color: gray;
+  height: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5em;
+  gap: 0.2em;
+  padding: 0.1em;
+  border-radius: 0.75em;
+  box-sizing: border-box;
+}
+#unit-c,
+#unit-f {
+  font-size: 0.5em;
+  height: 2em;
+  width: 2em;
+  background-color: red;
+  border-radius: 1em;
+  border: none;
+}
+#unit-c.active,
+#unit-f.active {
+  background-color: rgb(66, 196, 66);
+}
+#unit-c.active:hover,
+#unit-f.active:hover {
+  background-color: green;
+}
+#unit-c:hover,
+#unit-f:hover {
+  background-color: rgb(173, 3, 3);
 }
