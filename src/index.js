@@ -1,88 +1,47 @@
 import './styles.css';
-const KEY = 'PS2CXE5UFEY6ZXS27ERF5CVZL';
+import { unit, fToC, setUnit } from './unitConv';
+import { showError, showWeather } from './ui';
+import { elements } from './dom';
+import { getWeatherInfo } from './api';
 
-let inputSection = document.querySelector('input');
-let infoSection = document.querySelector('.info-section');
-let submitButton = document.querySelector('.submit-button');
-
-let unit = 'F';
-
-let cButton = document.querySelector('#unit-c');
-let fButton = document.querySelector('#unit-f');
-
-let tempText = document.querySelector('.temp');
-let descriptionText = document.querySelector('.description');
-let cityText = document.querySelector('.city');
-let timeText = document.querySelector('.time');
-
-let errorSection = document.querySelector('.error');
-let errorText = document.querySelector('.error-text');
-
-async function getWeatherInfo(city) {
-  let response = await fetch(
-    'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' +
-      city +
-      '?key=' +
-      KEY
-  );
-  if (!response.ok) {
-    throw new Error('City not found');
-  }
-  let data = await response.json();
-  return data;
-}
-
-submitButton.addEventListener('click', (e) => {
+elements.submitButton.addEventListener('click', async (e) => {
   e.preventDefault();
-  let city = inputSection.value;
-  inputSection.value = '';
-  updateInfo(city);
-});
+  let city = elements.inputSection.value;
+  if (!city) {
+    return;
+  }
+  elements.inputSection.value = '';
 
-async function updateInfo(city) {
-  let weatherData = await getWeatherInfo(city).catch((error) => {
-    infoSection.style.display = 'none';
-    errorSection.style.display = 'flex';
-
-    errorText.innerText = 'City not found';
-    console.log(error);
+  let data = await getWeatherInfo(city).catch(() => {
+    showError('City not found');
     return;
   });
-  if (!weatherData) {
+
+  if (!data) {
     return;
   }
-  console.log(weatherData);
-
-  let weatherDesc = weatherData.description;
-  let tempCur = weatherData.currentConditions.temp;
-  let timeCur = weatherData.currentConditions.datetime;
-  let cityCorrect = weatherData.address;
-  //let icon = weatherData.currentConditions.icon;
-  errorSection.style.display = 'none';
-  infoSection.style.display = 'flex';
+  let temp = data.currentConditions.temp;
+  let description = data.description;
+  let time = data.currentConditions.datetime;
+  let cityName = data.address;
 
   if (unit === 'C') {
-    tempCur = (tempCur - 32) / 1.8;
-    tempCur = Math.round(tempCur);
+    temp = fToC(temp);
   }
-
-  tempText.innerText = `${tempCur}${unit}`;
-  descriptionText.innerText = weatherDesc;
-  timeText.innerText = timeCur;
-  cityText.innerText = cityCorrect.toUpperCase();
-}
-
-cButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  unit = 'C';
-  console.log(unit);
-  fButton.classList.remove('active');
-  cButton.classList.add('active');
+  showWeather({ temp, description, time, city: cityName, unit });
 });
-fButton.addEventListener('click', (e) => {
+
+elements.cButton.addEventListener('click', (e) => {
   e.preventDefault();
-  unit = 'F';
+  setUnit('C');
   console.log(unit);
-  cButton.classList.remove('active');
-  fButton.classList.add('active');
+  elements.fButton.classList.remove('active');
+  elements.cButton.classList.add('active');
+});
+elements.fButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  setUnit('F');
+  console.log(unit);
+  elements.cButton.classList.remove('active');
+  elements.fButton.classList.add('active');
 });
