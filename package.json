@@ -26,6 +26,6 @@
     "build": "webpack --config webpack/webpack.prod.js",
     "lint": "eslint src --fix",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -r git@github.com:eren-tunali/weather-app.git"
   }
 }
